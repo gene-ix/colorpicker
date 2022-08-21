@@ -1,0 +1,68 @@
+@mixin Mark($size){
+    $sqrt: 1.41421;
+    $marksize1: $size;
+    $marksize2: calc(100% - (#{$marksize1} * #{$sqrt} / 2));
+
+    &::before{
+        content: '';
+        width: $marksize1;
+        height: $marksize1;
+        background-color: rgba($color: #000, $alpha: 0.4);
+        display: block;
+        position: absolute;
+        top: 0%;
+        right: 0%;
+    }
+
+    &::after{
+        content: '';
+        width: calc(#{$marksize1} * #{$sqrt});
+        height: calc(#{$marksize1} * #{$sqrt});
+        background-color: #fff;
+        display: block;
+        position: absolute;
+        bottom: #{$marksize2};
+        left: #{$marksize2};
+        transform: rotate(45deg);
+    }
+}
+
+.colorpicker{
+    width: 100%;
+    margin: 0;
+    padding: 0;
+
+    ul{
+        width: 100%;
+        height: 100%;
+        list-style: none;
+        display: flex;
+        margin: 0;
+        padding: 0;
+
+
+        li{
+            width: 100%;
+
+            input[type="radio"]{
+                display: none;
+
+                &:checked+label{
+                    @include Mark(40%);
+                }
+            }
+
+            label{
+                display: block;
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+                position: relative;
+
+                &:hover{
+                    @include Mark(20%);
+                }
+            }
+        }
+    }
+}
